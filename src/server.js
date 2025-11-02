@@ -3,8 +3,11 @@ import { ENV } from "./config/env.js";
 import { db } from "./database/db.js";
 import { favoritesTable } from "./database/schema.js";
 import { and, eq } from "drizzle-orm";
+import job from "./config/cron.js";
 
 const app = express();
+
+if (ENV.NODE_ENV === "production") job.start();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
